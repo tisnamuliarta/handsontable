@@ -1,7 +1,7 @@
 name: Docs Staging Deployment
 
 env:
-  GHA_DOCKER_TAG: docker.pkg.github.com/${{ github.repository }}/handsontable-documentation:latest
+  GHA_DOCKER_TAG: docker.pkg.github.com/${{ github.repository }}/handsontable-documentation:9.0
   GHA_DOCKER_TAG_SHA: docker.pkg.github.com/${{ github.repository }}/handsontable-documentation:${{ github.sha }}
 
 on:
