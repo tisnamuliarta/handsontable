@@ -1,6 +1,5 @@
 const path = require('path');
 const semver = require('semver');
-const hotConfig = require('../../hot.config');
 
 // TODO: fetch release versions list from GH API
 const unsortedVersions = ['9.0', '10.0', '11.0', '11.1', '12.0'];
@@ -42,8 +41,8 @@ function isThisDocsTheLatestVersion() {
  * @returns {string}
  */
 function getThisDocsVersion() {
-  // replace 3-digits version to 2-digits form
-  return hotConfig.HOT_VERSION.split('.').slice(-3, 2).join('.');
+  // TODO: fetch the version from the branch name?
+  return '9.0';
 }
 
 /**
