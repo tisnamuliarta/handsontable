@@ -132,6 +132,7 @@ export function resolveSidebarItems (page, regularPath, site, localePath) {
     : themeConfig
 
   const pageSidebarConfig = page.frontmatter.sidebar || localeConfig.sidebar || themeConfig.sidebar
+
   if (pageSidebarConfig === 'auto') {
     return resolveHeaders(page)
   }

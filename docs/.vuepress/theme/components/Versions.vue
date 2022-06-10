@@ -24,13 +24,11 @@ export default {
       return version;
     },
     getLink(version) {
-      const pathWithoutVersion = this.$route.path.replace(/^\/(\d+\.\d+|next)/, '');
-
       if (version === this.$page.latestVersion) {
-        return pathWithoutVersion;
+        return '/docs/';
       }
 
-      return `/${version}${pathWithoutVersion}`;
+      return `/docs/${version}/`;
     },
     getLegacyVersions() {
       return [
@@ -51,7 +49,7 @@ export default {
         '4.0.0',
       ].map(version => ({
         text: version.replace(/\.\d+$/, ''),
-        link: `https://handsontable.com/docs/${version}/`
+        link: `${this.$page.baseUrl}/docs/${version}/`
       }));
     }
   },
@@ -61,7 +59,12 @@ export default {
         text: this.addLatest(this.$page.currentVersion),
         items:
           [
-            ...this.$page.versions.map(v => ({ text: `${this.addLatest(v)}`, link: this.getLink(v) })),
+            ...this.$page.versions.map(v => ({
+              text: `${this.addLatest(v)}`,
+              link: this.getLink(v),
+              target: '_self',
+              isHtmlLink: true
+            })),
             ...this.getLegacyVersions()
           ]
       };

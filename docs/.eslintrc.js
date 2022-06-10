@@ -8,5 +8,19 @@ module.exports = {
   rules: {
     'no-restricted-globals': 'off',
     'import/no-unresolved': 'off'
-  }
+  },
+  overrides: [
+    {
+      files: ['*.mjs'],
+      rules: {
+        'import/extensions': 'off'
+      }
+    },
+    {
+      files: ['SvgFrameworkIcons.vue'],
+      rules: {
+        'max-len': 'off'
+      }
+    }
+  ]
 };

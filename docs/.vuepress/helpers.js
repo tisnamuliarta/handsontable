@@ -1,40 +1,84 @@
-const fs = require('fs');
 const path = require('path');
 const semver = require('semver');
+const hotConfig = require('../../hot.config');
 
-const unsortedVersions = fs.readdirSync(path.join(__dirname, '..'))
-  .filter(f => semver.valid(semver.coerce(f)));
-
+// TODO: fetch release versions list from GH API
+const unsortedVersions = ['9.0', '10.0', '11.0', '11.1', '12.0'];
 const availableVersions = unsortedVersions.sort((a, b) => semver.rcompare(semver.coerce(a), semver.coerce((b))));
 
+/**
+ * Gets all available docs versions.
+ *
+ * @param {string} buildMode The env name.
+ * @returns {string[]}
+ */
+function getVersions(buildMode) {
+  const next = buildMode !== 'production' ? ['next'] : [];
+
+  return [...next, ...availableVersions];
+}
+
+/**
+ * Gets the latest version of docs.
+ *
+ * @returns {string}
+ */
+function getLatestVersion() {
+  return availableVersions[0];
+}
+
+/**
+ * Checks if this documentation build points to the latest available version of the documentation.
+ *
+ * @returns {boolean}
+ */
+function isThisDocsTheLatestVersion() {
+  return getLatestVersion() === getThisDocsVersion();
+}
+
+/**
+ * Gets the current (this) version of docs.
+ *
+ * @returns {string}
+ */
+function getThisDocsVersion() {
+  // replace 3-digits version to 2-digits form
+  return hotConfig.HOT_VERSION.split('.').slice(-3, 2).join('.');
+}
+
+/**
+ * Gets the sidebar object for docs.
+ *
+ * @param {string} buildMode The env name.
+ * @returns {object}
+ */
+function getSidebars(buildMode) {
+  const sidebars = { };
+
+  // eslint-disable-next-line
+  const s = require(path.join(__dirname, '../content/sidebars.js'));
+
+  sidebars['/content/examples/'] = s.examples;
+  sidebars['/content/api/'] = s.api;
+  sidebars['/content/'] = s.guides;
+
+  return sidebars;
+}
+
+/**
+ * Gets docs base url (eq: https://handsontable.com).
+ *
+ * @returns {string}
+ */
+function getDocsBaseUrl() {
+  return `https://${process.env.BUILD_MODE === 'staging' ? 'dev.' : ''}handsontable.com`;
+}
+
 module.exports = {
-  getVersions(buildMode) {
-    const next = buildMode !== 'production' ? ['next'] : [];
-
-    return [...next, ...availableVersions];
-  },
-
-  getLatestVersion() {
-    return availableVersions[0];
-  },
-
-  getSidebars(buildMode) {
-    const sidebars = { };
-    const versions = this.getVersions(buildMode);
-
-    versions.forEach((version) => {
-      // eslint-disable-next-line
-      const s = require(path.join(__dirname, `../${version}/sidebars.js`));
-
-      sidebars[`/${version}/examples/`] = s.examples;
-      sidebars[`/${version}/api/`] = s.api;
-      sidebars[`/${version}/`] = s.guides;
-    });
-
-    return sidebars;
-  },
-
-  parseVersion(url) {
-    return url.split('/')[1] || this.getLatestVersion();
-  }
+  getVersions,
+  getLatestVersion,
+  isThisDocsTheLatestVersion,
+  getThisDocsVersion,
+  getSidebars,
+  getDocsBaseUrl,
 };

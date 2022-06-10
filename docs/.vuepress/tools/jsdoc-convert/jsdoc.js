@@ -8,10 +8,14 @@ const childProcess = require('child_process');
 
 const { logger } = require('../utils');
 
+const contentPath = path.resolve(__dirname, '../../../content');
+const contentDir = fs.existsSync(contentPath) ? 'content' : 'next';
+
 /// parameters
 const pathToSource = '../../../../src';
-const pathToDist = '../../../next/api';
-const urlPrefix = '/next/api/';
+// const pathToDist = `../../../${contentDir}/api`;
+const pathToDist = `../../../content/api`;
+const urlPrefix = '/api/';
 const whitelist = [
   'dataMap/metaManager/metaSchema.js',
   'pluginHooks.js',
@@ -33,22 +37,22 @@ const seo = {
   'dataMap/metaManager/metaSchema.js': {
     title: 'Options',
     metaTitle: 'Options - API Reference - Handsontable Documentation',
-    permalink: '/next/api/options'
+    permalink: '/api/options'
   },
   'pluginHooks.js': {
     title: 'Hooks',
     metaTitle: 'Hooks - API Reference - Handsontable Documentation',
-    permalink: '/next/api/hooks'
+    permalink: '/api/hooks'
   },
   'core.js': {
     title: 'Core',
     metaTitle: 'Core - API Reference - Handsontable Documentation',
-    permalink: '/next/api/core'
+    permalink: '/api/core'
   },
   '3rdparty/walkontable/src/cell/coords.js': {
     title: 'CellCoords',
     metaTitle: 'CellCoords - API Reference - Handsontable Documentation',
-    permalink: '/next/api/coords'
+    permalink: '/api/coords'
   },
 };
 
