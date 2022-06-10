@@ -286,7 +286,7 @@ export default {
       return '/';
     },
 
-    isSearchable(page) {
+    isSearchable() {
       return true;
     },
 

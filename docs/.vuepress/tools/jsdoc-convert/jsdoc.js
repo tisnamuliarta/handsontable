@@ -8,13 +8,13 @@ const childProcess = require('child_process');
 
 const { logger } = require('../utils');
 
-const contentPath = path.resolve(__dirname, '../../../content');
-const contentDir = fs.existsSync(contentPath) ? 'content' : 'next';
+// const contentPath = path.resolve(__dirname, '../../../content');
+// const contentDir = fs.existsSync(contentPath) ? 'content' : 'next';
 
 /// parameters
 const pathToSource = '../../../../src';
 // const pathToDist = `../../../${contentDir}/api`;
-const pathToDist = `../../../content/api`;
+const pathToDist = '../../../content/api';
 const urlPrefix = '/api/';
 const whitelist = [
   'dataMap/metaManager/metaSchema.js',

@@ -1,14 +1,13 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+// import fs from 'fs';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
 
-const contentPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../content');
-const contentDir = fs.existsSync(contentPath) ? 'content' : 'next';
+// const contentPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../content');
+// const contentDir = fs.existsSync(contentPath) ? 'content' : 'next';
 
 export default {
   pathToSource: '../../../../src',
-  // pathToDist: `../../../${contentDir}/api`,
-  pathToDist: `../../../content/api`,
+  pathToDist: '../../../content/api',
   urlPrefix: '/9.0/api/',
   seo: {
     'dataMap/metaManager/metaSchema.js': {

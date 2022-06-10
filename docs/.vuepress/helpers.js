@@ -48,10 +48,9 @@ function getThisDocsVersion() {
 /**
  * Gets the sidebar object for docs.
  *
- * @param {string} buildMode The env name.
  * @returns {object}
  */
-function getSidebars(buildMode) {
+function getSidebars() {
   const sidebars = { };
 
   // eslint-disable-next-line
